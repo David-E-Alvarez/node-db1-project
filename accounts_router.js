@@ -52,4 +52,27 @@ router.put('/:id', (req,res) => {
         })
 })
 
+//delete an account
+router.delete('/:id', (req,res) => {
+    db('accounts').where({id: req.params.id})
+        .then(account => {
+            console.log(account)
+            if(account.length === 0 || account.length == null){
+                res.status(404).json("account doesnt exist")
+            }else{
+                db('accounts').where({id: req.params.id}).del()
+                    .then(delAcct => {
+                        console.log("delAcct: ", delAcct)
+                        res.status(201).json(delAcct)
+                    })
+                    .catch(error => {
+                        res.status(500).json(error)
+                    })
+            }
+        })
+        .catch(error => {
+            res.status(500).json(error)
+        })
+})
+
 module.exports = router;
