@@ -11,7 +11,9 @@
 
 -- List first 10 orders placed, sorted descending by the order date
 
-    
+    select OrderID, CustomerID, OrderDate from Orders
+      order by OrderDate desc
+      limit 10;
 
 -- Find all customers that live in London, Madrid, or Brazil
 
