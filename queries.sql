@@ -1,6 +1,8 @@
 -- Database Queries
 
 -- Find all customers with postal code 1010
+  
+    select CustomerName, PostalCode from Customers where PostalCode = 1010;
 
 -- Find the phone number for the supplier with the id 11
 
