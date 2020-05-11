@@ -29,4 +29,27 @@ router.get('/', (req,res) => {
         })
 })
 
+//update account
+router.put('/:id', (req,res) => {
+    db('accounts').where({id: req.params.id})
+        .then(account => {
+            console.log("account in put: ", account)
+            if(account.length === 0 || account.length == null){
+                res.status(404).json("account doesnt exist")
+            }else{
+                db('accounts').insert(req.body).where({id: req.params.id})
+                    .then(updatedAcct => {
+                        console.log("updated account", updatedAcct)
+                        res.status(201).json(updatedAcct)
+                    })
+                    .catch(error => {
+                        res.status(500).json(error)
+                    })
+            }
+        })
+        .catch(error => {
+            res.status(500).json(error)
+        })
+})
+
 module.exports = router;
