@@ -13,7 +13,7 @@ router.post('/', (req,res) => {
         })
         .catch(error => {
             console.log(error)
-            res.status(500).json(error)
+            res.status(500).json(error.message)
         })
 })
 
@@ -37,13 +37,13 @@ router.put('/:id', (req,res) => {
             if(account.length === 0 || account.length == null){
                 res.status(404).json("account doesnt exist")
             }else{
-                db('accounts').insert(req.body).where({id: req.params.id})
+                db('accounts').update(req.body).where({id: req.params.id})
                     .then(updatedAcct => {
                         console.log("updated account", updatedAcct)
                         res.status(201).json(updatedAcct)
                     })
                     .catch(error => {
-                        res.status(500).json(error)
+                        res.status(500).json(error.message)
                     })
             }
         })
